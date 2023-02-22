@@ -1,0 +1,2 @@
+# Random-Visualizator
+ Displays on a game field selected figures in random order with given lifetime and cooldown values. This is a random visulizator. You can choose which of the three figures to display on the game field, as well as set the lifetime and cooldown between the display of these figures. Figures appears in a random place on the game field. When the figure's lifetime reaches zero, it disappears.
