@@ -4,8 +4,7 @@
     {
         Triangle,
         Circle,
-        Square,
-        Empty
+        Square
     }
 
 }

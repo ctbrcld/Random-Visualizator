@@ -23,7 +23,6 @@ public class Buttons : MonoBehaviour
             button.image.sprite = buttonOn;
             isOff = false;
         }
-
         else
         {
             button.image.sprite = buttonOff;
