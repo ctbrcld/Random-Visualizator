@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +5,7 @@ public class Figures : MonoBehaviour
 
 {
     private float _lifeTime;
-
+    [SerializeField] private Text _lifeTimeLabel;
     public void Initialize(float lifeTime)
     {
         _lifeTime = lifeTime;
@@ -19,7 +17,7 @@ public class Figures : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        gameObject.GetComponentInChildren<Text>().text = _lifeTime.ToString("F1");
+        _lifeTimeLabel.text = _lifeTime.ToString("F1");
         _lifeTime -= Time.deltaTime;
     }
 }

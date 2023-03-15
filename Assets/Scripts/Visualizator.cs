@@ -1,11 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public partial class Visualizator : MonoBehaviour
+public class Visualizator : MonoBehaviour
 {
-    [SerializeField] private RectTransform spawnPoint;
+    [SerializeField] private RectTransform _spawnPoint;
     [SerializeField] private InputField _lifetimeFieldMin;
     [SerializeField] private InputField _lifetimeFieldMax;
     [SerializeField] private InputField _cooldownFieldMin;
@@ -14,18 +13,18 @@ public partial class Visualizator : MonoBehaviour
     [SerializeField] private Figures _prefabCircle;
     [SerializeField] private Figures _prefabSquare;
 
-    private readonly List<FigureType> _spawnedFigures = new List<FigureType>();
+    private const int MinSizeBorder = 75;
 
-    private bool _usedTriangle;
-    private bool _usedCircle;
-    private bool _usedSquare;
+    private readonly List<FigureType> _spawnFigures = new List<FigureType>();
+    private bool _useTriangle;
+    private bool _useCircle;
+    private bool _useSquare;
 
-    private float maxX;
-    private float maxY;
+    private float _maxX;
+    private float _maxY;
     private float _cooldown;
 
-    private Figures _currentFigure;
-    private FigureType _figure;
+
 
     private void Start()
     {
@@ -41,60 +40,60 @@ public partial class Visualizator : MonoBehaviour
     {
         _cooldown -= Time.deltaTime;
 
-        if (_cooldown <= 0 && _spawnedFigures.Count > 0)
+        if (_cooldown <= 0 && _spawnFigures.Count > 0)
         {
             Spawn();
             _cooldown = Random.Range(int.Parse(_cooldownFieldMin.text), int.Parse(_cooldownFieldMax.text));
         }
     }
 
-    public void SpawnSquare()
+    public void SpawnSquareSwitcher()
     {
-        _usedSquare = !_usedSquare;
+        _useSquare = !_useSquare;
 
-        if (_usedSquare)
+        if (_useSquare)
         {
-            _spawnedFigures.Add(FigureType.Square);
+            _spawnFigures.Add(FigureType.Square);
         }
         else
         {
-            _spawnedFigures.Remove(FigureType.Square);
+            _spawnFigures.Remove(FigureType.Square);
         }
     }
 
-    public void SpawnCircle()
+    public void SpawnCircleSwitcher()
     {
-        _usedCircle = !_usedCircle;
+        _useCircle = !_useCircle;
 
-        if (_usedCircle)
+        if (_useCircle)
         {
-            _spawnedFigures.Add(FigureType.Circle);
+            _spawnFigures.Add(FigureType.Circle);
         }
         else
         {
-            _spawnedFigures.Remove(FigureType.Circle);
+            _spawnFigures.Remove(FigureType.Circle);
         }
     }
 
-    public void SpawnTriangle()
+    public void SpawnTriangleSwitcher()
     {
-        _usedTriangle = !_usedTriangle;
+        _useTriangle = !_useTriangle;
 
-        if (_usedTriangle)
+        if (_useTriangle)
         {
-            _spawnedFigures.Add(FigureType.Triangle);
+            _spawnFigures.Add(FigureType.Triangle);
         }
         else
         {
-            _spawnedFigures.Remove(FigureType.Triangle);
+            _spawnFigures.Remove(FigureType.Triangle);
         }
     }
 
-    public void Spawn()
+    private void Spawn()
     {
-        _figure = _spawnedFigures[Random.Range(0, _spawnedFigures.Count)];
+        Figures _currentFigure = null;
 
-        switch (_figure)
+        switch (_spawnFigures[Random.Range(0, _spawnFigures.Count)])
         {
             case FigureType.Triangle:
                 _currentFigure = _prefabTriangle;
@@ -108,11 +107,12 @@ public partial class Visualizator : MonoBehaviour
         }
 
         float lifeTime = Random.Range(float.Parse(_lifetimeFieldMin.text), float.Parse(_lifetimeFieldMax.text));
-        maxX = spawnPoint.rect.size.x;
-        maxY = spawnPoint.rect.size.y;
-        float randomX = Random.Range(75, maxX - 75);
-        float randomY = Random.Range(75, maxY - 75);
-        var newfigure = Instantiate(_currentFigure, this.transform);
+        var rect = _spawnPoint.rect;
+        _maxX = rect.size.x;
+        _maxY = rect.size.y;
+        float randomX = Random.Range(MinSizeBorder, _maxX - MinSizeBorder);
+        float randomY = Random.Range(MinSizeBorder, _maxY - MinSizeBorder);
+        var newfigure = Instantiate(_currentFigure, transform);
         newfigure.transform.localPosition = new Vector2(randomX, randomY);
         newfigure.Initialize(lifeTime);
     }

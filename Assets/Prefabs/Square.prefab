@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e111aa28f5aeb340b09650b0793353d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lifeTimeLabel: {fileID: 3761829503644120921}
 --- !u!114 &3945179792881434140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +160,7 @@ MonoBehaviour:
     m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 3
+    m_MinSize: 1
     m_MaxSize: 30
     m_Alignment: 4
     m_AlignByGeometry: 0

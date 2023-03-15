@@ -1,10 +1,6 @@
-﻿public partial class Visualizator
+﻿public enum FigureType
 {
-    public enum FigureType
-    {
-        Triangle,
-        Circle,
-        Square
-    }
-
+    Triangle,
+    Circle,
+    Square
 }
